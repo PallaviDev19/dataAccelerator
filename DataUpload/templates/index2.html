@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Preview Dataframe</title>
+  </head>
+  <body>
+    <h1>Preview Dataframe</h1>
+    <form method="POST" action="{% url 'preview' %}">
+      {% csrf_token %}
+      <button type="submit">Preview</button>
+    </form>
+    <br>
+    {% if df_head %}
+      {{ df_head|safe }}
+      <p>Dataframe has {{ n_rows }} rows and {{ n_cols }} columns</p>
+    {% endif %}
+    
+
+    <h1>Null Values</h1>
+    <form method="POST" action="{% url 'nullsum' %}">
+    {% csrf_token %}
+    <button type="submit">NullSum</button>
+    </form>
+    <br>
+    {{ df_null|safe }}
+  </body>
+</html>
+
+
+<!-- <html>  
+<head>  
+    <title>Uploading & Reading CSV file</title>  
+</head>  
+<body>  
+    <form method = "POST" enctype="multipart/form-data" action = "/">    
+        <input type="file" name="file">
+        <input type = "submit" value="Upload">  
+    </form>
+    
+    <p style="color:green;">file uploaded successfully</p>
+    <h3>.................................................................</h3>
+  <form action="/preview" >
+     <input type="submit" value="Preview Data" text-align="center"/>       
+  </form>
+  <p>{{ data_head|safe }}</p>
+  {% if n_rows %}
+    <p>Dataframe has {{ n_rows|safe }} rows and {{ n_cols|safe }} columns</p>
+    {% endif %}
+    <h3>.................................................................</h3>
+    <h3> choose_target_variables / Split Data into train_test_split</h3>
+    <form method="POST" action="/get_columns">
+        <input type="submit" value="Choose target variable">
+    </form>
+
+    {% if columns %}
+    <form method="POST" action="/choose_target_variables">
+    <p></p>
+    <select multiple name="options">
+        {% for column in columns %}
+        <option value="{{ column }}">{{ column }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Choose">
+    </form>
+    {% endif %}
+    {% if selected_columns %}
+    <p>Dependent Variables: {{ selected_columns|safe }}</p>
+    <p>Target Variable: {{ target_var|safe }}</p>
+    {% endif %}
+  <h3>.................................................................</h3>
+  <h2>Drop DataFrame Column (if necessary)</h2>
+	<form method="post" action="/drop_col">
+		<label for="column_name">Column Name:</label>
+		<input type="text" id="column_name" name="column_name"><br><br>
+		<input type="submit" value="Drop Column">
+        
+	</form>
+	{% if df %}
+		<hr>
+		{{ df|safe }}
+	{% endif %}
+
+    <h3>.................................................................</h3>
+    <h2>Data understanding</h2>
+    {% if text_col %}
+    <p>Your data contains Strings. Use one of the following options.</p>
+    <form method="POST" action="/encode">
+        <p>Choose an encoder</p>
+        <select multiple name="encoders">
+            <option value="one_hot">One Hot Encoder</option>
+            <option value="count_vec">Count Vectorizer</option>
+        </select>
+        <br>
+        <input type="submit" value="Encode">
+    </form>
+    <p>{{ encoded_df|safe }}</p>
+    {% endif %}
+    <form action="/histogram">
+        <input type="submit" value="Show Histogram" text-align="center">
+    </form>
+    <img src="{{ plot_url }}">
+
+    <form action="/show_nullSum" >
+        <input type="submit" value="Show Null Sum" text-align="center"/>   
+    </form>
+    <p>{{ data_nullSum|safe}}</p>
+    <form action="/fillna">
+        <input type="submit" value="Fill Null Values" text-align="center">
+    </form>
+    <p>{{ data_fillna|safe}}</p>
+    <form action="/show_describe" >
+        <input type="submit" value="show Description" text-align="center"/>   
+    </form>
+    <p>{{ data_des|safe}}</p>    
+    <form action="/show_correlation" >
+        <input type="submit" value="show Correlation" text-align="center"/>   
+    </form>
+    <p>{{ data_corr|safe}}</p>
+    <form action="/pairplot" >
+        <input type="submit" value="show PirPlot" text-align="center"/>   
+    </form>
+    <h3>.................................................................</h3>
+    <h2> Find Outliers :- </h2>
+    <form action="show_outlier" enctype="multipart/form-data">
+
+        <button type="submit">Show Outlier</button>
+    </form>
+    {% if count %}
+    <p>Total count of Outlier Row And Columns :-  {{count | safe}}</p>
+    <p>Mean :-   {{ mean|safe }}</p>
+    <p>median :- {{median|safe}} </p>
+    <p>std :- {{std|safe}}</p>
+
+    <table>{{outlier_data|safe}}</table>
+    {% endif %}
+    <h3>.................................................................</h3>
+    <form method="POST" action="/train_model">
+        <h2>Choose an Algorithm</h2>
+        <select multiple name="tasks">
+            <option value="reg">Regression</option>
+            <option value="class">Classification</option>
+        </select>
+        <br>
+        <input type="submit" value="Train model">
+    </form>
+    
+    <p>{{ data|safe }}</p>
+    
+    <p>{{ data_null|safe }}</p>
+    
+    
+    {% if train_rmse %}
+    <p>Training R2 Score is {{ train_r2|safe }}</p>
+    <p>RMSE value: {{ train_rmse|safe }}</p>
+    <p>Testing R2 Score is {{ test_r2|safe }}</p>
+    <p>RMSE value: {{ test_rmse|safe }}</p>
+    {% endif %}
+
+    {% if train_acc %}
+    <p>Training Accuracy is {{ train_acc|safe }}</p>
+    <p>Testing Acuracy is {{ test_acc|safe }}</p>
+    <p>Confusion matrix: {{ cm|safe }}</p>
+    {% endif %}
+
+    <form action="/plot" >
+        <input type="submit" value="Plot" text-align="center"/>   
+    </form>
+    
+</body>  
+</html> -->

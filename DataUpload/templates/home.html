@@ -1,0 +1,14 @@
+<html>  
+<head>  
+    <title>Uploading & Reading CSV file</title>  
+</head>  
+<body>  
+    <h2>Please upload a CSV or Excel file...</h2>
+    <form method = "POST" enctype="multipart/form-data"> 
+        {% csrf_token %}   
+        <input type="file" name="file" accept=".csv">
+        <input type = "submit" value="Upload">  
+    </form>
+    <p style="color:rgb(227, 25, 11);">Choose csv file to upload</p>
+</body>  
+</html>
